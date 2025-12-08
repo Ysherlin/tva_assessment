@@ -22,7 +22,6 @@
     <Folder Include="Application\Dtos\" />
     <Folder Include="Application\Features\" />
     <Folder Include="Application\Validation\" />
-    <Folder Include="Infrastructure\Repositories\" />
   </ItemGroup>
 
 </Project>

@@ -26,11 +26,6 @@
         public decimal OutstandingBalance { get; set; }
 
         /// <summary>
-        /// Indicates whether the account is closed.
-        /// </summary>
-        public bool IsClosed { get; set; } = false;
-
-        /// <summary>
         /// The person who owns the account.
         /// </summary>
         public required Person Person { get; set; }

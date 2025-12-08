@@ -114,12 +114,6 @@ namespace tva_assessment.Infrastructure.Persistence
                   .IsRequired()
                   .HasColumnType("money");
 
-            // IsClosed is not in the original script; it will be added via a migration.
-            entity.Property(a => a.IsClosed)
-                  .HasColumnName("is_closed")
-                  .IsRequired()
-                  .HasDefaultValue(false);
-
             entity.HasIndex(a => a.AccountNumber)
                   .IsUnique()
                   .HasDatabaseName("IX_Account_num");
