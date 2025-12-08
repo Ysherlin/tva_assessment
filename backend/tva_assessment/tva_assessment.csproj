@@ -17,9 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Api\Controllers\" />
     <Folder Include="Api\Models\" />
-    <Folder Include="Application\Dtos\" />
     <Folder Include="Application\Features\" />
     <Folder Include="Application\Validation\" />
   </ItemGroup>
