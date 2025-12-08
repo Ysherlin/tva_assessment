@@ -28,7 +28,7 @@
         /// <summary>
         /// The person who owns the account.
         /// </summary>
-        public required Person Person { get; set; }
+        public Person? Person { get; set; }
 
         /// <summary>
         /// The transactions linked to the account.

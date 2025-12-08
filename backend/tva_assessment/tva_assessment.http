@@ -1,6 +1,0 @@
-@tva_assessment_HostAddress = http://localhost:5111
-
-GET {{tva_assessment_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

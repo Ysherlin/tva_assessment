@@ -11,17 +11,17 @@ namespace tva_assessment.Infrastructure.Persistence
         /// <summary>
         /// The persons set in the database.
         /// </summary>
-        public DbSet<Person> Persons { get; set; }
+        public DbSet<Person> Persons { get; set; } = null!;
 
         /// <summary>
         /// The accounts set in the database.
         /// </summary>
-        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Account> Accounts { get; set; } = null!;
 
         /// <summary>
         /// The transactions set in the database.
         /// </summary>
-        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Transaction> Transactions { get; set; } = null!;
 
         /// <summary>
         /// Creates a new instance of the database context.
