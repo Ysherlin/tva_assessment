@@ -1,6 +1,8 @@
 
 using Microsoft.EntityFrameworkCore;
+using tva_assessment.Application.Interfaces;
 using tva_assessment.Infrastructure.Persistence;
+using tva_assessment.Infrastructure.Repositories;
 
 namespace tva_assessment
 {
@@ -13,6 +15,10 @@ namespace tva_assessment
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+            builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+            builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
