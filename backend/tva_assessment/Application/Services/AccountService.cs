@@ -76,7 +76,8 @@ namespace tva_assessment.Application.Services
             {
                 PersonCode = accountDto.PersonCode,
                 AccountNumber = accountDto.AccountNumber,
-                OutstandingBalance = accountDto.OutstandingBalance
+                // Balance is always maintained by transactions.
+                OutstandingBalance = 0m
             };
 
             await _accountRepository.AddAsync(account, cancellationToken);
@@ -116,8 +117,6 @@ namespace tva_assessment.Application.Services
 
                 existing.AccountNumber = accountDto.AccountNumber;
             }
-
-            existing.OutstandingBalance = accountDto.OutstandingBalance;
 
             await _accountRepository.UpdateAsync(existing, cancellationToken);
 

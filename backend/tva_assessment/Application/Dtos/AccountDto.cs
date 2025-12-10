@@ -26,7 +26,7 @@ namespace tva_assessment.Application.DTOs
         public string AccountNumber { get; set; } = string.Empty;
 
         /// <summary>
-        /// The current balance of the account.
+        /// The current balance of the account, maintained by transactions only.
         /// </summary>
         public decimal OutstandingBalance { get; set; }
     }
