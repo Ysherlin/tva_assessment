@@ -21,6 +21,7 @@ namespace tva_assessment
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
             builder.Services.AddScoped<IPersonService, PersonService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
