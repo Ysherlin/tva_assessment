@@ -1,4 +1,6 @@
-﻿namespace tva_assessment.Application.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace tva_assessment.Application.DTOs
 {
     /// <summary>
     /// Represents an account returned by the API.
@@ -13,11 +15,14 @@
         /// <summary>
         /// The identifier of the person who owns the account.
         /// </summary>
+        [Required]
         public int PersonCode { get; set; }
 
         /// <summary>
         /// The unique number of the account.
         /// </summary>
+        [Required]
+        [StringLength(50)]
         public string AccountNumber { get; set; } = string.Empty;
 
         /// <summary>

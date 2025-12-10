@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using tva_assessment.Application.Interfaces;
 using tva_assessment.Application.Services;
+using tva_assessment.Middleware;
 using tva_assessment.Infrastructure.Persistence;
 using tva_assessment.Infrastructure.Repositories;
 
@@ -35,6 +36,8 @@ namespace tva_assessment
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseHttpsRedirection();
 
