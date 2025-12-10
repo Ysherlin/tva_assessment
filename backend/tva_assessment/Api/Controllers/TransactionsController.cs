@@ -2,7 +2,7 @@
 using tva_assessment.Application.DTOs;
 using tva_assessment.Application.Interfaces;
 
-namespace tva_assessment.Controllers
+namespace tva_assessment.Api.Controllers
 {
     /// <summary>
     /// Provides API endpoints for managing transactions.
