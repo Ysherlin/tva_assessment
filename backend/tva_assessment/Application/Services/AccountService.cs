@@ -74,7 +74,11 @@ namespace tva_assessment.Application.Services
             {
                 PersonCode = accountDto.PersonCode,
                 AccountNumber = accountDto.AccountNumber,
-                OutstandingBalance = 0m
+                OutstandingBalance = 0m,
+                Status = new AccountStatus
+                {
+                    IsClosed = false
+                }
             };
 
             await _accountRepository.AddAsync(account, cancellationToken);
