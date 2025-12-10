@@ -1,7 +1,6 @@
-﻿using System.Text.Json;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using NUnit.Framework;
+using System.Text.Json;
 using tva_assessment.Middleware;
 
 namespace tva_assessment.Test.Middleware
