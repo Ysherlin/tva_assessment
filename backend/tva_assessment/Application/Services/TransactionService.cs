@@ -55,6 +55,12 @@ namespace tva_assessment.Application.Services
                 throw new InvalidOperationException("The account does not exist.");
             }
 
+            // ✅ Enforce closed rule
+            if (account.Status?.IsClosed == true)
+            {
+                throw new InvalidOperationException("Transactions cannot be posted to a closed account.");
+            }
+
             ValidateTransaction(transactionDto);
 
             var transaction = new Transaction
@@ -68,7 +74,7 @@ namespace tva_assessment.Application.Services
 
             await _transactionRepository.AddAsync(transaction, cancellationToken);
 
-            await UpdateAccountBalanceAsync(transaction.AccountCode, cancellationToken);
+            await RecalculateOutstandingBalanceAsync(transaction.AccountCode, cancellationToken);
 
             return MapToDto(transaction);
         }
@@ -134,6 +140,26 @@ namespace tva_assessment.Application.Services
 
             var transactions = await _transactionRepository.GetByAccountCodeAsync(accountCode, cancellationToken);
             account.OutstandingBalance = transactions.Sum(t => t.Amount);
+
+            await _accountRepository.UpdateAsync(account, cancellationToken);
+        }
+
+        /// <summary>
+        /// Recalculates and updates the outstanding balance for an account.
+        /// </summary>
+        private async Task RecalculateOutstandingBalanceAsync(int accountCode, CancellationToken cancellationToken)
+        {
+            var transactions = await _transactionRepository.GetByAccountCodeAsync(accountCode, cancellationToken);
+
+            var newBalance = transactions.Sum(t => t.Amount);
+
+            var account = await _accountRepository.GetByCodeAsync(accountCode, cancellationToken);
+            if (account is null)
+            {
+                throw new InvalidOperationException("Account not found while recalculating balance.");
+            }
+
+            account.OutstandingBalance = newBalance;
 
             await _accountRepository.UpdateAsync(account, cancellationToken);
         }

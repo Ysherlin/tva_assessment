@@ -91,5 +91,25 @@ namespace tva_assessment.Api.Controllers
 
             return Ok(updated);
         }
+
+        /// <summary>
+        /// Closes an account.
+        /// </summary>
+        [HttpPost("{code:int}/close")]
+        public async Task<ActionResult<AccountDto>> Close(int code, CancellationToken cancellationToken)
+        {
+            var result = await _accountService.CloseAsync(code, cancellationToken);
+            return result is null ? NotFound() : Ok(result);
+        }
+
+        /// <summary>
+        /// Reopens an account.
+        /// </summary>
+        [HttpPost("{code:int}/reopen")]
+        public async Task<ActionResult<AccountDto>> Reopen(int code, CancellationToken cancellationToken)
+        {
+            var result = await _accountService.ReopenAsync(code, cancellationToken);
+            return result is null ? NotFound() : Ok(result);
+        }
     }
 }

@@ -45,7 +45,6 @@ namespace tva_assessment.Application.Services
         /// </summary>
         public async Task<PersonDto> CreateAsync(PersonDto personDto, CancellationToken cancellationToken = default)
         {
-            // Simple business rule: ID number must be unique.
             var exists = await _personRepository.ExistsByIdNumberAsync(personDto.IdNumber, cancellationToken);
             if (exists)
             {
@@ -69,12 +68,12 @@ namespace tva_assessment.Application.Services
         /// </summary>
         public async Task<PersonDto?> UpdateAsync(PersonDto personDto, CancellationToken cancellationToken = default)
         {
-            var existing = await _personRepository.GetByCodeAsync(personDto.Code, cancellationToken);
-            if (existing is null)
+            var person = await _personRepository.GetByCodeAsync(personDto.Code, cancellationToken);
+            if (person is null)
             {
                 return null;
             }
-            if (!string.Equals(existing.IdNumber, personDto.IdNumber, StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(person.IdNumber, personDto.IdNumber, StringComparison.OrdinalIgnoreCase))
             {
                 var exists = await _personRepository.ExistsByIdNumberAsync(personDto.IdNumber, cancellationToken);
                 if (exists)
@@ -82,41 +81,41 @@ namespace tva_assessment.Application.Services
                     throw new InvalidOperationException("A person with the same ID number already exists.");
                 }
 
-                existing.IdNumber = personDto.IdNumber;
+                person.IdNumber = personDto.IdNumber;
             }
 
-            existing.Name = personDto.Name;
-            existing.Surname = personDto.Surname;
+            person.Name = personDto.Name;
+            person.Surname = personDto.Surname;
 
-            await _personRepository.UpdateAsync(existing, cancellationToken);
+            await _personRepository.UpdateAsync(person, cancellationToken);
 
-            return MapToDto(existing);
+            return MapToDto(person);
         }
 
         /// <summary>
-        /// Deletes an existing person if all account rules are satisfied.
+        /// Deletes a person if all account rules are satisfied.
         /// </summary>
         public async Task<bool> DeleteAsync(int code, CancellationToken cancellationToken = default)
         {
-            var existing = await _personRepository.GetByCodeAsync(code, cancellationToken);
-            if (existing is null)
+            var person = await _personRepository.GetByCodeAsync(code, cancellationToken);
+            if (person is null)
             {
                 return false;
             }
 
-            if (!existing.Accounts.Any())
+            if (!person.Accounts.Any())
             {
-                await _personRepository.DeleteAsync(existing, cancellationToken);
+                await _personRepository.DeleteAsync(person, cancellationToken);
                 return true;
             }
 
-            var hasAccountWithBalance = existing.Accounts.Any(a => a.OutstandingBalance != 0m);
-            if (hasAccountWithBalance)
+            var hasOpenAccounts = person.Accounts.Any(a => a.Status?.IsClosed == false);
+            if (hasOpenAccounts)
             {
-                throw new InvalidOperationException( "The person cannot be deleted because one or more accounts have an outstanding balance.");
+                throw new InvalidOperationException("The person cannot be deleted because one or more accounts are still open.");
             }
 
-            await _personRepository.DeleteAsync(existing, cancellationToken);
+            await _personRepository.DeleteAsync(person, cancellationToken);
             return true;
         }
 

@@ -31,5 +31,15 @@ namespace tva_assessment.Application.Interfaces
         /// Updates an existing account.
         /// </summary>
         Task<AccountDto?> UpdateAsync(AccountDto account, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Closes an account.
+        /// </summary>
+        Task<AccountDto?> CloseAsync(int code, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Reopens an account.
+        /// </summary>
+        Task<AccountDto?> ReopenAsync(int code, CancellationToken cancellationToken = default);
     }
 }

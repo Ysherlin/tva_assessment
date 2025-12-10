@@ -121,6 +121,62 @@ namespace tva_assessment.Application.Services
         }
 
         /// <summary>
+        /// Closes an account if the balance is zero.
+        /// </summary>
+        public async Task<AccountDto?> CloseAsync(int code, CancellationToken cancellationToken = default)
+        {
+            var account = await _accountRepository.GetByCodeAsync(code, cancellationToken);
+            if (account is null)
+            {
+                return null;
+            }
+
+            if (account.OutstandingBalance != 0m)
+            {
+                throw new InvalidOperationException("The account cannot be closed because the balance is not zero.");
+            }
+
+            if (account.Status?.IsClosed == true)
+            {
+                throw new InvalidOperationException("The account is already closed.");
+            }
+
+            account.Status ??= new AccountStatus
+            {
+                AccountCode = account.Code
+            };
+
+            account.Status.IsClosed = true;
+
+            await _accountRepository.UpdateAsync(account, cancellationToken);
+
+            return MapToDto(account);
+        }
+
+        /// <summary>
+        /// Reopens a closed account.
+        /// </summary>
+        public async Task<AccountDto?> ReopenAsync(int code, CancellationToken cancellationToken = default)
+        {
+            var account = await _accountRepository.GetByCodeAsync(code, cancellationToken);
+            if (account is null)
+            {
+                return null;
+            }
+
+            if (account.Status?.IsClosed != true)
+            {
+                throw new InvalidOperationException("The account is not closed.");
+            }
+
+            account.Status.IsClosed = false;
+
+            await _accountRepository.UpdateAsync(account, cancellationToken);
+
+            return MapToDto(account);
+        }
+
+        /// <summary>
         /// Maps an account entity to an account DTO.
         /// </summary>
         private static AccountDto MapToDto(Account account)
