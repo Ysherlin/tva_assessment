@@ -1,0 +1,14 @@
+<header class="top-bar">
+  <h1 class="app-title">TVA Assessment</h1>
+
+  <nav class="nav">
+    <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="persons" routerLinkActive="active">Persons</a>
+    <a routerLink="about" routerLinkActive="active">About</a>
+    <a routerLink="contact" routerLinkActive="active">Contact</a>
+  </nav>
+</header>
+
+<main class="content">
+  <router-outlet></router-outlet>
+</main>
