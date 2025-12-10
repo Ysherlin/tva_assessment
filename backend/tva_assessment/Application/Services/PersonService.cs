@@ -74,8 +74,6 @@ namespace tva_assessment.Application.Services
             {
                 return null;
             }
-
-            // Optional: check if ID number changed and is still unique.
             if (!string.Equals(existing.IdNumber, personDto.IdNumber, StringComparison.OrdinalIgnoreCase))
             {
                 var exists = await _personRepository.ExistsByIdNumberAsync(personDto.IdNumber, cancellationToken);
@@ -96,7 +94,7 @@ namespace tva_assessment.Application.Services
         }
 
         /// <summary>
-        /// Deletes an existing person.
+        /// Deletes an existing person if all account rules are satisfied.
         /// </summary>
         public async Task<bool> DeleteAsync(int code, CancellationToken cancellationToken = default)
         {
@@ -106,10 +104,16 @@ namespace tva_assessment.Application.Services
                 return false;
             }
 
-            // NOTE: Full business rule (accounts/closed) can be added later here.
-            if (existing.Accounts.Any())
+            if (!existing.Accounts.Any())
             {
-                throw new InvalidOperationException("The person cannot be deleted because they have accounts.");
+                await _personRepository.DeleteAsync(existing, cancellationToken);
+                return true;
+            }
+
+            var hasAccountWithBalance = existing.Accounts.Any(a => a.OutstandingBalance != 0m);
+            if (hasAccountWithBalance)
+            {
+                throw new InvalidOperationException( "The person cannot be deleted because one or more accounts have an outstanding balance.");
             }
 
             await _personRepository.DeleteAsync(existing, cancellationToken);

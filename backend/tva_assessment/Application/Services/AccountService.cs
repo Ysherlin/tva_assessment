@@ -58,14 +58,12 @@ namespace tva_assessment.Application.Services
         /// </summary>
         public async Task<AccountDto> CreateAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
         {
-            // Ensure the person exists.
             var person = await _personRepository.GetByCodeAsync(accountDto.PersonCode, cancellationToken);
             if (person is null)
             {
                 throw new InvalidOperationException("The person does not exist.");
             }
 
-            // Ensure the account number is unique.
             var existingAccount = await _accountRepository.GetByAccountNumberAsync(accountDto.AccountNumber, cancellationToken);
             if (existingAccount is not null)
             {
@@ -76,7 +74,6 @@ namespace tva_assessment.Application.Services
             {
                 PersonCode = accountDto.PersonCode,
                 AccountNumber = accountDto.AccountNumber,
-                // Balance is always maintained by transactions.
                 OutstandingBalance = 0m
             };
 
