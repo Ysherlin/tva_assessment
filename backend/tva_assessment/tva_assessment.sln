@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36717.8 d17.14
+VisualStudioVersion = 17.14.36717.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tva_assessment", "tva_assessment.csproj", "{E07030BE-5C21-46E9-98CC-2B6AC6274263}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tva_assessment.Test", "..\tva_assessment.Test\tva_assessment.Test.csproj", "{A028C967-A007-464E-A29D-8A7F5477E275}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E07030BE-5C21-46E9-98CC-2B6AC6274263}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E07030BE-5C21-46E9-98CC-2B6AC6274263}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E07030BE-5C21-46E9-98CC-2B6AC6274263}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A028C967-A007-464E-A29D-8A7F5477E275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A028C967-A007-464E-A29D-8A7F5477E275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A028C967-A007-464E-A29D-8A7F5477E275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A028C967-A007-464E-A29D-8A7F5477E275}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
