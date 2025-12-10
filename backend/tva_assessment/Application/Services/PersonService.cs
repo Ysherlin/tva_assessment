@@ -117,6 +117,45 @@ namespace tva_assessment.Application.Services
         }
 
         /// <summary>
+        /// Searches for persons with paging.
+        /// </summary>
+        public async Task<PagedResultDto<PersonDto>> SearchAsync( string? idNumber, string? surname, string? accountNumber, int pageNumber, int pageSize, CancellationToken cancellationToken = default)
+        {
+            if (pageNumber < 1)
+            {
+                throw new InvalidOperationException("Page number must be at least 1.");
+            }
+
+            const int maxPageSize = 10;
+            if (pageSize <= 0 || pageSize > maxPageSize)
+            {
+                pageSize = maxPageSize;
+            }
+
+            var skip = (pageNumber - 1) * pageSize;
+
+            var totalCount = await _personRepository.CountAsync(idNumber, surname, accountNumber, cancellationToken);
+            var persons = await _personRepository.SearchAsync(idNumber, surname, accountNumber, skip, pageSize, cancellationToken);
+
+            var items = persons
+                .Select(MapToDto)
+                .ToList();
+
+            var totalPages = totalCount == 0
+                ? 0
+                : (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            return new PagedResultDto<PersonDto>
+            {
+                Items = items,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages
+            };
+        }
+
+        /// <summary>
         /// Maps a person entity to a person DTO.
         /// </summary>
         private static PersonDto MapToDto(Person person)

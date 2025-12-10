@@ -31,5 +31,10 @@ namespace tva_assessment.Application.Interfaces
         /// Deletes an existing person.
         /// </summary>
         Task<bool> DeleteAsync(int code, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Searches for persons with paging.
+        /// </summary>
+        Task<PagedResultDto<PersonDto>> SearchAsync( string? idNumber, string? surname, string? accountNumber, int pageNumber, int pageSize, CancellationToken cancellationToken = default);
     }
 }

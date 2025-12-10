@@ -41,5 +41,15 @@ namespace tva_assessment.Application.Interfaces
         /// Deletes an existing person.
         /// </summary>
         Task DeleteAsync(Person person, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Searches for persons with paging.
+        /// </summary>
+        Task<IReadOnlyList<Person>> SearchAsync(string? idNumber, string? surname, string? accountNumber, int skip, int take, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Gets the number of persons that match the search criteria.
+        /// </summary>
+        Task<int> CountAsync(string? idNumber, string? surname, string? accountNumber, CancellationToken cancellationToken = default);
     }
 }

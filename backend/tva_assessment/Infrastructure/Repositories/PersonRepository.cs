@@ -86,5 +86,58 @@ namespace tva_assessment.Infrastructure.Repositories
             _context.Persons.Remove(person);
             await _context.SaveChangesAsync(cancellationToken);
         }
+
+        /// <summary>
+        /// Searches for persons with paging.
+        /// </summary>
+        public async Task<IReadOnlyList<Person>> SearchAsync(string? idNumber, string? surname, string? accountNumber, int skip, int take, CancellationToken cancellationToken = default)
+        {
+            var query = BuildSearchQuery(idNumber, surname, accountNumber);
+
+            query = query
+                .Include(p => p.Accounts)
+                .OrderBy(p => p.Surname)
+                .ThenBy(p => p.Name)
+                .ThenBy(p => p.IdNumber);
+
+            return await query
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets the number of persons that match the search criteria.
+        /// </summary>
+        public async Task<int> CountAsync(string? idNumber, string? surname, string? accountNumber, CancellationToken cancellationToken = default)
+        {
+            var query = BuildSearchQuery(idNumber, surname, accountNumber);
+            return await query.CountAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Builds the base query for person searching.
+        /// </summary>
+        private IQueryable<Person> BuildSearchQuery(string? idNumber, string? surname, string? accountNumber)
+        {
+            var query = _context.Persons.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(idNumber))
+            {
+                query = query.Where(p => p.IdNumber == idNumber);
+            }
+
+            if (!string.IsNullOrWhiteSpace(surname))
+            {
+                query = query.Where(p => p.Surname != null && p.Surname.Contains(surname));
+            }
+
+            if (!string.IsNullOrWhiteSpace(accountNumber))
+            {
+                query = query.Where(p => p.Accounts.Any(a => a.AccountNumber == accountNumber));
+            }
+
+            return query;
+        }
     }
 }

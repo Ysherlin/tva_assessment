@@ -23,13 +23,14 @@ namespace tva_assessment.Api.Controllers
         }
 
         /// <summary>
-        /// Gets all persons.
+        /// Searches for persons with paging.
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<PersonDto>>> GetAll(CancellationToken cancellationToken)
+        public async Task<ActionResult<PagedResultDto<PersonDto>>> Search([FromQuery] string? idNumber, [FromQuery] string? surname, [FromQuery] string? accountNumber, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, CancellationToken cancellationToken = default)
         {
-            var persons = await _personService.GetAllAsync(cancellationToken);
-            return Ok(persons);
+            var result = await _personService.SearchAsync(idNumber, surname, accountNumber, pageNumber, pageSize, cancellationToken);
+
+            return Ok(result);
         }
 
         /// <summary>
