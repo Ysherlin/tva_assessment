@@ -31,6 +31,11 @@
         public Person? Person { get; set; }
 
         /// <summary>
+        /// The status of the account.
+        /// </summary>
+        public AccountStatus? Status { get; set; }
+
+        /// <summary>
         /// The transactions linked to the account.
         /// </summary>
         public List<Transaction> Transactions { get; set; } = new();

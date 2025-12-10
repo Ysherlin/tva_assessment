@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using tva_assessment.Domain.Entities;
 
 namespace tva_assessment.Infrastructure.Persistence
@@ -17,6 +17,11 @@ namespace tva_assessment.Infrastructure.Persistence
         /// The accounts set in the database.
         /// </summary>
         public DbSet<Account> Accounts { get; set; } = null!;
+
+        /// <summary>
+        /// The account statuses set in the database.
+        /// </summary>
+        public DbSet<AccountStatus> AccountStatuses { get; set; } = null!;
 
         /// <summary>
         /// The transactions set in the database.
@@ -42,6 +47,7 @@ namespace tva_assessment.Infrastructure.Persistence
 
             ConfigurePerson(modelBuilder);
             ConfigureAccount(modelBuilder);
+            ConfigureAccountStatus(modelBuilder);
             ConfigureTransaction(modelBuilder);
         }
 
@@ -122,6 +128,32 @@ namespace tva_assessment.Infrastructure.Persistence
                   .WithOne(t => t.Account)
                   .HasForeignKey(t => t.AccountCode)
                   .HasConstraintName("FK_Transaction_Account");
+        }
+
+        /// <summary>
+        /// Configures the account status entity.
+        /// </summary>
+        /// <param name="modelBuilder">The builder used to configure the model.</param>
+        private static void ConfigureAccountStatus(ModelBuilder modelBuilder)
+        {
+            var entity = modelBuilder.Entity<AccountStatus>();
+
+            entity.ToTable("Accounts_status");
+
+            entity.HasKey(s => s.AccountCode);
+
+            entity.Property(s => s.AccountCode)
+                  .HasColumnName("account_code")
+                  .IsRequired();
+
+            entity.Property(s => s.IsClosed)
+                  .HasColumnName("status")
+                  .IsRequired();
+
+            entity.HasOne(s => s.Account)
+                  .WithOne(a => a.Status)
+                  .HasForeignKey<AccountStatus>(s => s.AccountCode)
+                  .HasConstraintName("FK_Accounts_status_Account");
         }
 
         /// <summary>
