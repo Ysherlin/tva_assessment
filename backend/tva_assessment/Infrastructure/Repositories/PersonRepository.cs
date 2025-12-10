@@ -38,6 +38,7 @@ namespace tva_assessment.Infrastructure.Repositories
         {
             return await _context.Persons
                 .Include(p => p.Accounts)
+                    .ThenInclude(a => a.Status)
                 .FirstOrDefaultAsync(p => p.Code == code, cancellationToken);
         }
 
@@ -48,6 +49,7 @@ namespace tva_assessment.Infrastructure.Repositories
         {
             return await _context.Persons
                 .Include(p => p.Accounts)
+                    .ThenInclude(a => a.Status)
                 .FirstOrDefaultAsync(p => p.IdNumber == idNumber, cancellationToken);
         }
 
