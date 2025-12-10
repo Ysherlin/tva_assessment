@@ -1,0 +1,160 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0" version="29.2.7">
+  <diagram name="Architecture" id="tva-architecture-diagram">
+    <mxGraphModel dx="1418" dy="746" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="client" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Postman / Frontend SPA&#xa;HTTP / JSON over REST" vertex="1">
+          <mxGeometry height="60" width="220" x="380" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="apiLayer" parent="1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=28;rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="API Layer (tva_assessment.Api)" vertex="1">
+          <mxGeometry height="160" width="700" x="140" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="personsController" parent="apiLayer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;" value="PersonsController" vertex="1">
+          <mxGeometry height="40" width="200" x="10" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="accountsController" parent="apiLayer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;" value="AccountsController" vertex="1">
+          <mxGeometry height="40" width="200" x="240" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="transactionsController" parent="apiLayer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;" value="TransactionsController" vertex="1">
+          <mxGeometry height="40" width="200" x="470" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="appLayer" parent="1" style="swimlane;rounded=1;horizontal=1;startSize=28;fillColor=#fff2cc;strokeColor=#d6b656;" value="Application Layer (tva_assessment.Application)" vertex="1">
+          <mxGeometry height="200" width="700" x="140" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="appInterfaces" parent="appLayer" style="swimlane;rounded=0;horizontal=0;startSize=24;fillColor=#ffffff;strokeColor=#999999;" value="Interfaces" vertex="1">
+          <mxGeometry height="172" width="340" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="IPersonService" parent="appInterfaces" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#999999;" value="IPersonService" vertex="1">
+          <mxGeometry height="30" width="160" x="30" y="32" as="geometry" />
+        </mxCell>
+        <mxCell id="IAccountService" parent="appInterfaces" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#999999;" value="IAccountService" vertex="1">
+          <mxGeometry height="30" width="160" x="30" y="71" as="geometry" />
+        </mxCell>
+        <mxCell id="ITransactionService" parent="appInterfaces" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#999999;" value="ITransactionService" vertex="1">
+          <mxGeometry height="30" width="160" x="30" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="appServices" parent="appLayer" style="swimlane;rounded=0;horizontal=0;startSize=24;fillColor=#ffffff;strokeColor=#999999;" value="Services" vertex="1">
+          <mxGeometry height="172" width="340" x="360" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="PersonService" parent="appServices" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#999999;" value="PersonService" vertex="1">
+          <mxGeometry height="30" width="160" x="40" y="32" as="geometry" />
+        </mxCell>
+        <mxCell id="AccountService" parent="appServices" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#999999;" value="AccountService" vertex="1">
+          <mxGeometry height="30" width="160" x="40" y="71" as="geometry" />
+        </mxCell>
+        <mxCell id="TransactionService" parent="appServices" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#999999;" value="TransactionService" vertex="1">
+          <mxGeometry height="30" width="160" x="40" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="infraLayer" parent="1" style="swimlane;rounded=1;horizontal=1;startSize=28;fillColor=#f8cecc;strokeColor=#b85450;" value="Infrastructure Layer (tva_assessment.Infrastructure)" vertex="1">
+          <mxGeometry height="220" width="700" x="140" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="dbContext" parent="infraLayer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;" value="ApplicationDbContext (EF Core)" vertex="1">
+          <mxGeometry height="40" width="220" x="240" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PersonRepository" parent="infraLayer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;" value="PersonRepository" vertex="1">
+          <mxGeometry height="30" width="180" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="AccountRepository" parent="infraLayer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;" value="AccountRepository" vertex="1">
+          <mxGeometry height="30" width="180" x="260" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="TransactionRepository" parent="infraLayer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;" value="TransactionRepository" vertex="1">
+          <mxGeometry height="30" width="200" x="480" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="middleware" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="ExceptionHandlingMiddleware&#xa;(Global error handling)" vertex="1">
+          <mxGeometry height="80" width="220" x="900" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_client_api" edge="1" parent="1" source="client" style="endArrow=block;html=1;" target="apiLayer">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_persons_IPersonService" edge="1" parent="1" source="personsController" style="endArrow=block;html=1;" target="IPersonService">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="40" y="240" />
+              <mxPoint x="40" y="375" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_accounts_IAccountService" edge="1" parent="1" source="accountsController" style="endArrow=block;html=1;" target="IAccountService">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="70" y="280" />
+              <mxPoint x="70" y="414" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_transactions_ITransactionService" edge="1" parent="1" source="transactionsController" style="endArrow=block;html=1;" target="ITransactionService">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="100" y="330" />
+              <mxPoint x="100" y="455" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_IPersonService_PersonService" edge="1" parent="1" source="IPersonService" style="endArrow=block;dashed=1;html=1;" target="PersonService">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_IAccountService_AccountService" edge="1" parent="1" source="IAccountService" style="endArrow=block;dashed=1;html=1;" target="AccountService">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_ITransactionService_TransactionService" edge="1" parent="1" source="ITransactionService" style="endArrow=block;dashed=1;html=1;" target="TransactionService">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_PersonService_PersonRepository" edge="1" parent="1" source="PersonService" style="endArrow=block;html=1;" target="PersonRepository">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1110" y="370" />
+              <mxPoint x="1110" y="740" />
+              <mxPoint x="720" y="740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_AccountService_AccountRepository" edge="1" parent="1" source="AccountService" style="endArrow=block;html=1;" target="AccountRepository">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1060" y="410" />
+              <mxPoint x="1060" y="700" />
+              <mxPoint x="810" y="700" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_TransactionService_TransactionRepository" edge="1" parent="1" source="TransactionService" style="endArrow=block;html=1;" target="TransactionRepository">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1020" y="460" />
+              <mxPoint x="1020" y="645" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_PersonRepository_DbContext" edge="1" parent="1" source="PersonRepository" style="endArrow=block;html=1;" target="dbContext">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_AccountRepository_DbContext" edge="1" parent="1" source="AccountRepository" style="endArrow=block;html=1;" target="dbContext">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_TransactionRepository_DbContext" edge="1" parent="1" source="TransactionRepository" style="endArrow=block;html=1;" target="dbContext">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_DbContext_Database" edge="1" parent="1" source="dbContext" style="endArrow=block;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="KZ42VydrByTeVpgVKnL5-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="630" />
+              <mxPoint x="380" y="700" />
+            </Array>
+            <mxPoint x="476.08695652173924" y="870" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_middleware_api" edge="1" parent="1" source="middleware" style="endArrow=block;dashed=1;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="840" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KZ42VydrByTeVpgVKnL5-2" parent="1" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;" value="&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212));&quot;&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important; background-color: rgb(27, 29, 30);&quot;&gt;SQL Server Database&lt;/span&gt;&lt;br style=&quot;forced-color-adjust: none; color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; box-shadow: none !important; background-color: rgb(27, 29, 30);&quot;&gt;&lt;span style=&quot;color: rgb(255, 255, 255); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important; background-color: rgb(27, 29, 30);&quot;&gt;Persons, Accounts, AccountStatuses, Transactions&lt;/span&gt;&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="140" width="220" x="380" y="840" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

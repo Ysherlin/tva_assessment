@@ -1,0 +1,42 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0" version="29.2.7">
+  <diagram id="tva-er-diagram" name="ER Diagram">
+    <mxGraphModel dx="1418" dy="746" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=16" value="TVA Assessment - ER Diagram" vertex="1">
+          <mxGeometry height="30" width="320" x="420" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Persons" parent="1" style="shape=rectangle;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=8;" value="Persons&#xa;----------------------&#xa;PK  code : int&#xa;    id_number : nvarchar(50) (UNIQUE)&#xa;    name : nvarchar(50)&#xa;    surname : nvarchar(50)" vertex="1">
+          <mxGeometry height="140" width="280" x="120" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="Accounts" parent="1" style="shape=rectangle;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=8;" value="Accounts&#xa;----------------------&#xa;PK  code : int&#xa;FK  person_code : int&#xa;    account_number : nvarchar(50) (UNIQUE)&#xa;    outstanding_balance : money" vertex="1">
+          <mxGeometry height="160" width="320" x="520" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Accounts_status" parent="1" style="shape=rectangle;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=8;" value="Accounts_status&#xa;----------------------&#xa;PK/FK  account_code : int&#xa;       status : bit (IsClosed)" vertex="1">
+          <mxGeometry height="120" width="260" x="548" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="Transactions" parent="1" style="shape=rectangle;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=8;" value="Transactions&#xa;----------------------&#xa;PK  code : int&#xa;FK  account_code : int&#xa;    transaction_date : datetime&#xa;    capture_date : datetime&#xa;    amount : money&#xa;    description : nvarchar(100)" vertex="1">
+          <mxGeometry height="180" width="320" x="520" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_Persons_Accounts" edge="1" parent="1" source="Persons" style="endArrow=block;html=1;" target="Accounts">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_Accounts_Transactions" edge="1" parent="1" source="Accounts" style="endArrow=block;html=1;" target="Transactions">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="910" y="180" />
+              <mxPoint x="910" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_Accounts_Accounts_status" edge="1" parent="1" source="Accounts" style="endArrow=block;html=1;" target="Accounts_status">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=8;fontSize=11" value="Legend&#xa;PK = Primary Key&#xa;FK = Foreign Key&#xa;1 , * = Cardinality" vertex="1">
+          <mxGeometry height="100" width="200" x="900" y="520" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

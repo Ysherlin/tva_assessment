@@ -1,0 +1,83 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="tva-er-diagram" name="ER Diagram">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- TITLE -->
+        <mxCell id="title" value="TVA Assessment - ER Diagram" style="text;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=16" vertex="1" parent="1">
+          <mxGeometry x="420" y="20" width="320" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- PERSONS TABLE -->
+        <mxCell id="Persons" value="Persons&#10;----------------------&#10;PK  code : int&#10;    id_number : nvarchar(50) (UNIQUE)&#10;    name : nvarchar(50)&#10;    surname : nvarchar(50)" style="shape=rectangle;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=8;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="120" y="100" width="280" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- ACCOUNTS TABLE -->
+        <mxCell id="Accounts" value="Accounts&#10;----------------------&#10;PK  code : int&#10;FK  person_code : int&#10;    account_number : nvarchar(50) (UNIQUE)&#10;    outstanding_balance : money" style="shape=rectangle;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=8;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="520" y="100" width="320" height="160" as="geometry"/>
+        </mxCell>
+
+        <!-- ACCOUNTS_STATUS TABLE -->
+        <mxCell id="Accounts_status" value="Accounts_status&#10;----------------------&#10;PK/FK  account_code : int&#10;       status : bit (IsClosed)" style="shape=rectangle;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=8;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="520" y="320" width="260" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- TRANSACTIONS TABLE -->
+        <mxCell id="Transactions" value="Transactions&#10;----------------------&#10;PK  code : int&#10;FK  account_code : int&#10;    transaction_date : datetime&#10;    capture_date : datetime&#10;    amount : money&#10;    description : nvarchar(100)" style="shape=rectangle;rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=8;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="520" y="520" width="320" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- RELATIONSHIPS -->
+
+        <!-- Persons 1 ----< Accounts -->
+        <mxCell id="edge_Persons_Accounts" style="endArrow=block;html=1;" edge="1" parent="1" source="Persons" target="Accounts">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Cardinality labels -->
+        <mxCell id="card_Persons_1" value="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="390" y="150" width="20" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card_Accounts_many" value="*" style="text;html=1;strokeColor=none;fillColor=none;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="510" y="150" width="20" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Accounts 1 ----< Transactions -->
+        <mxCell id="edge_Accounts_Transactions" style="endArrow=block;html=1;" edge="1" parent="1" source="Accounts" target="Transactions">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card_Accounts_1" value="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="670" y="260" width="20" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card_Transactions_many" value="*" style="text;html=1;strokeColor=none;fillColor=none;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="670" y="510" width="20" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Accounts 1 ---- 1 Accounts_status -->
+        <mxCell id="edge_Accounts_Accounts_status" style="endArrow=block;html=1;" edge="1" parent="1" source="Accounts" target="Accounts_status">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card_Accounts_1_status" value="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="670" y="250" width="20" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card_Accounts_status_1" value="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="670" y="310" width="20" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- LEGEND (optional) -->
+        <mxCell id="legend" value="Legend&#10;PK  = Primary Key&#10;FK  = Foreign Key&#10;1, * = Cardinality" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=8;fillColor=#f5f5f5;strokeColor=#999999;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="900" y="520" width="200" height="100" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
