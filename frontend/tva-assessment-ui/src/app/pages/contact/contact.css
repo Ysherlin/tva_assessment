@@ -1,0 +1,32 @@
+/* PAGE LAYOUT */
+.persons-page {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+}
+
+/* PANEL */
+.contact-panel {
+  background: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+/* TEXT */
+p {
+  font-size: 0.95rem;
+  color: #374151;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+}
+
+ul {
+  margin-left: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+li {
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
