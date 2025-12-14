@@ -115,8 +115,35 @@ A complete Postman collection and environment are provided for manual API testin
 
 ---
 
+## 🖥️ Frontend Application (Angular)
+
+In addition to the API, the solution includes a **frontend Angular Single Page Application (SPA)**.
+
+### 🔹 Frontend Features
+
+- Person search with paging
+- Create, edit, and delete persons
+- View accounts per person
+- Create, edit, close, and reopen accounts
+- View and create transactions per account
+- Navigation between related entities
+- UI validation aligned with backend business rules
+
+### 🔹 Frontend Architecture
+
+- Standalone Angular components
+- Angular Signals for state management
+- Services for API communication
+- Typed models aligned with backend DTOs
+- Router-based navigation between pages
+
+The frontend consumes the API via HTTP and mirrors backend rules to ensure a consistent user experience.
+
+---
+
 ## ⚙️ Technologies Used
 
+### Backend
 - ASP.NET Core (.NET 8)
 - Entity Framework Core
 - SQL Server
@@ -124,7 +151,25 @@ A complete Postman collection and environment are provided for manual API testin
 - NUnit 3
 - Moq
 - FluentAssertions
+
+### Frontend
+- Angular
+- TypeScript
+- Angular Signals
+- Angular Router
+- Angular Forms
+- Angular Material (Date Picker)
+
+### Tooling
 - Draw.io (Diagrams)
 - Postman (API Testing)
+
+---
+
+## 👤 Developer Information
+
+**Developer:** Ysherlin Govender  
+**Cell:** 078 701 2565  
+**Email:** ysherlin.govender@gmail.com  
 
 ---
