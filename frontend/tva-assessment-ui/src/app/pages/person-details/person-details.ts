@@ -2,7 +2,6 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { PersonService } from '../../services/person.service';
 import { AccountService } from '../../services/account.service';
 import { Person } from '../../models/person.model';
@@ -44,7 +43,6 @@ export class PersonDetailsComponent {
   ngOnInit() {
     const idParam = this.route.snapshot.paramMap.get('id');
 
-    // NEW PERSON
     if (!idParam) {
       this.isNew.set(true);
       this.isEditMode.set(true);

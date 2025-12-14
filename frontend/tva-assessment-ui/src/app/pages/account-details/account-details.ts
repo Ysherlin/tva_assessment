@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../../services/account.service';
+import { TransactionService } from '../../services/transaction.service';
 import { Account } from '../../models/account.model';
+import { Transaction } from '../../models/transaction.model';
 
 @Component({
   selector: 'app-account-details',
@@ -17,10 +19,12 @@ export class AccountDetailsComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private accountService = inject(AccountService);
+  private transactionService = inject(TransactionService);
 
   isNew = signal(false);
   isEditMode = signal(false);
   loading = signal(false);
+  transactions = signal<Transaction[]>([]);
 
   form = signal<Account>({
     personCode: 0,
@@ -56,11 +60,24 @@ export class AccountDetailsComponent {
     this.accountService.getOne(code).subscribe({
       next: (a) => {
         this.form.set(a);
-        this.loading.set(false);
+        this.loadTransactions(code);
       },
       error: () => {
         alert('Failed to load account');
         this.router.navigate(['/persons']);
+      }
+    });
+  }
+
+  private loadTransactions(accountCode: number) {
+    this.transactionService.getByAccount(accountCode).subscribe({
+      next: (tx) => {
+        this.transactions.set(tx);
+        this.loading.set(false);
+      },
+      error: () => {
+        alert('Failed to load transactions');
+        this.loading.set(false);
       }
     });
   }
@@ -123,7 +140,7 @@ export class AccountDetailsComponent {
     });
   }
 
-  openTransaction(t: any) {
+  openTransaction(t: Transaction) {
     this.router.navigate(['/transactions', t.code]);
   }
 
@@ -132,8 +149,8 @@ export class AccountDetailsComponent {
       queryParams: { accountCode: this.form().code }
     });
   }
-  
+
   backToPerson() {
-  this.router.navigate(['/persons', this.form().personCode]);
- }
+    this.router.navigate(['/persons', this.form().personCode]);
+  }
 }

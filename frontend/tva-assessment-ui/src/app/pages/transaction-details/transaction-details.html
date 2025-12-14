@@ -1,2 +1,52 @@
-<h2>Transaction Details</h2>
-<p>This page will show and edit a single transaction.</p>
+<div class="persons-page">
+
+  <h2 *ngIf="isNew()">New Transaction</h2>
+  <h2 *ngIf="!isNew()">Transaction Details</h2>
+
+  <button
+    style="margin-bottom: 1rem;"
+    (click)="cancel()">
+    ← Back to Account
+  </button>
+
+  <div *ngIf="loading()" class="loading">Loading...</div>
+
+  <div *ngIf="!loading()" class="account-details-panel">
+
+    <label>
+      Account Code
+      <input [value]="form().accountCode" disabled />
+    </label>
+
+    <label>
+      Transaction Date
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="form().transactionDate" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </label>
+
+    <label>
+      Amount
+      <input type="number" [(ngModel)]="form().amount" />
+    </label>
+
+    <label>
+      Description
+      <input [(ngModel)]="form().description" />
+    </label>
+
+    <label *ngIf="form().captureDate">
+      Capture Date
+      <input [value]="form().captureDate | date" disabled />
+    </label>
+
+    <div class="actions">
+      <button (click)="save()">Save</button>
+      <button (click)="cancel()">Cancel</button>
+    </div>
+
+  </div>
+</div>
