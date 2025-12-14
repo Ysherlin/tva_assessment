@@ -179,9 +179,6 @@ namespace tva_assessment.Application.Services
             return MapToDto(account);
         }
 
-        /// <summary>
-        /// Maps an account entity to an account DTO.
-        /// </summary>
         private static AccountDto MapToDto(Account account)
         {
             return new AccountDto
@@ -189,7 +186,8 @@ namespace tva_assessment.Application.Services
                 Code = account.Code,
                 PersonCode = account.PersonCode,
                 AccountNumber = account.AccountNumber,
-                OutstandingBalance = account.OutstandingBalance
+                OutstandingBalance = account.OutstandingBalance,
+                IsClosed = account.Status?.IsClosed ?? false
             };
         }
     }

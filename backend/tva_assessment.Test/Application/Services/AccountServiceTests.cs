@@ -105,6 +105,7 @@ namespace tva_assessment.Test.Application.Services
             result.PersonCode.Should().Be(dto.PersonCode);
             result.AccountNumber.Should().Be(dto.AccountNumber);
             result.OutstandingBalance.Should().Be(0m);
+            result.IsClosed.Should().BeFalse();
 
             // Assert – entity state
             savedAccount.Should().NotBeNull();
@@ -299,6 +300,7 @@ namespace tva_assessment.Test.Application.Services
             result.PersonCode.Should().Be(account.PersonCode);
             result.AccountNumber.Should().Be(account.AccountNumber);
             result.OutstandingBalance.Should().Be(account.OutstandingBalance);
+            result.IsClosed.Should().BeTrue();
 
             // Assert – entity state
             updatedAccount.Should().NotBeNull();
@@ -382,6 +384,7 @@ namespace tva_assessment.Test.Application.Services
             result.PersonCode.Should().Be(account.PersonCode);
             result.AccountNumber.Should().Be(account.AccountNumber);
             result.OutstandingBalance.Should().Be(account.OutstandingBalance);
+            result.IsClosed.Should().BeFalse();
 
             // Assert – entity state
             updatedAccount.Should().NotBeNull();
