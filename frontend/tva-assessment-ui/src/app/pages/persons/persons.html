@@ -2,12 +2,10 @@
 
   <h2>Persons</h2>
 
-  <!-- Actions -->
   <div style="margin-bottom: 1rem;">
     <button (click)="createNew()">+ New Person</button>
   </div>
 
-  <!-- Search Panel -->
   <div class="search-panel">
     <label>
       ID Number:
@@ -22,12 +20,10 @@
     <button (click)="search()">Search</button>
   </div>
 
-  <!-- Loading -->
   <div *ngIf="loading()" class="loading">
     Loading...
   </div>
 
-  <!-- Results Table -->
   <table *ngIf="!loading() && results().length > 0">
     <thead>
       <tr>
@@ -49,7 +45,6 @@
     No results found.
   </div>
 
-  <!-- Paging -->
   <div class="paging" *ngIf="totalPages() > 1">
 
     <button 

@@ -42,7 +42,6 @@ export class TransactionDetailsComponent {
     const accountCodeParam =
       this.route.snapshot.queryParamMap.get('accountCode');
 
-    // NEW TRANSACTION
     if (!codeParam && accountCodeParam) {
       this.isNew.set(true);
       this.form.update(f => ({
@@ -52,7 +51,6 @@ export class TransactionDetailsComponent {
       return;
     }
 
-    // EDIT TRANSACTION
     const code = Number(codeParam);
     if (!code || Number.isNaN(code)) {
       alert('Invalid transaction');

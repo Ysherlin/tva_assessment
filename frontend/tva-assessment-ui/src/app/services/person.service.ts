@@ -10,7 +10,6 @@ export class PersonService {
 
   constructor(private http: HttpClient) {}
 
-  // ---- Search persons ----
   search(
     idNumber: string | null,
     surname: string | null,
@@ -30,22 +29,18 @@ export class PersonService {
     return this.http.get<PagedResult<Person>>(this.baseUrl, { params });
   }
 
-  // ---- Get single person ----
   getOne(code: number): Observable<Person> {
     return this.http.get<Person>(`${this.baseUrl}/${code}`);
   }
 
-  // ---- Create person ----
   create(person: Person): Observable<Person> {
     return this.http.post<Person>(this.baseUrl, person);
   }
 
-  // ---- Update person ----
   update(person: Person): Observable<Person> {
     return this.http.put<Person>(`${this.baseUrl}/${person.code}`, person);
   }
 
-  // ---- Delete person ----
   delete(code: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${code}`);
   }

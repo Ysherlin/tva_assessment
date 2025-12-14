@@ -37,7 +37,6 @@ export class AccountDetailsComponent {
     const codeParam = this.route.snapshot.paramMap.get('id');
     const personCodeParam = this.route.snapshot.queryParamMap.get('personCode');
 
-    // NEW ACCOUNT
     if (!codeParam && personCodeParam) {
       this.isNew.set(true);
       this.isEditMode.set(true);
@@ -48,7 +47,6 @@ export class AccountDetailsComponent {
       return;
     }
 
-    // EXISTING ACCOUNT
     const code = Number(codeParam);
     if (!code || Number.isNaN(code)) {
       alert('Invalid account');
