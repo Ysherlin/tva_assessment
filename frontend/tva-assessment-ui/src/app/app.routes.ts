@@ -11,6 +11,7 @@ import { ContactComponent } from './pages/contact/contact';
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'persons', component: PersonsComponent },
+  { path: 'persons/new', component: PersonDetailsComponent },
   { path: 'persons/:id', component: PersonDetailsComponent },
   { path: 'accounts/:id', component: AccountDetailsComponent },
   { path: 'transactions/:id', component: TransactionDetailsComponent },

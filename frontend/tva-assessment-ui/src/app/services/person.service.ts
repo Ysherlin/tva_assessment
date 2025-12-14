@@ -35,6 +35,16 @@ export class PersonService {
     return this.http.get<Person>(`${this.baseUrl}/${code}`);
   }
 
+  // ---- Create person ----
+  create(person: Person): Observable<Person> {
+    return this.http.post<Person>(this.baseUrl, person);
+  }
+
+  // ---- Update person ----
+  update(person: Person): Observable<Person> {
+    return this.http.put<Person>(`${this.baseUrl}/${person.code}`, person);
+  }
+
   // ---- Delete person ----
   delete(code: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${code}`);

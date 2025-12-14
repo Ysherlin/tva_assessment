@@ -17,11 +17,9 @@ export class PersonsComponent {
   private personService = inject(PersonService);
   private router = inject(Router);
 
-  // ✔ Input fields (bound with ngModel)
   idNumber = signal<string>('');
   surname = signal<string>('');
 
-  // ✔ State
   loading = signal<boolean>(false);
   page = signal<number>(1);
   pageSize = 10;
@@ -34,8 +32,6 @@ export class PersonsComponent {
     totalPages: 0
   });
 
-  // ------ COMPUTED VALUES BOUND TO TEMPLATE ------
-
   results = computed(() => this.resultsState().items);
   totalPages = computed(() => this.resultsState().totalPages);
   currentPage = computed(() => this.resultsState().pageNumber);
@@ -46,13 +42,9 @@ export class PersonsComponent {
     return Array.from({ length: total }, (_, i) => i + 1);
   });
 
-  // ------ MAIN SEARCH FUNCTION (ALWAYS RESETS TO PAGE 1) ------
-
   search() {
     this.loadPage(1);
   }
-
-  // ------ PAGING ------
 
   loadPage(page: number) {
     this.page.set(page);
@@ -62,7 +54,7 @@ export class PersonsComponent {
       .search(
         this.idNumber() || null,
         this.surname() || null,
-        null,          // accountNumber is NOT used in this spec
+        null,
         page,
         this.pageSize
       )
@@ -71,17 +63,23 @@ export class PersonsComponent {
           this.resultsState.set(res);
           this.loading.set(false);
         },
-        error: (err) => {
-          console.error(err);
+        error: (err: any) => {
           alert(err?.error?.message ?? 'Failed to load persons');
           this.loading.set(false);
         }
       });
   }
 
-  // ------ OPEN DETAILS ------
-
   openDetails(person: Person) {
+    if (!person.code) {
+      alert('Invalid person selected');
+      return;
+    }
+
     this.router.navigate(['/persons', person.code]);
+  }
+
+  createNew() {
+    this.router.navigate(['/persons/new']);
   }
 }
