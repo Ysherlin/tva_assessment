@@ -3,6 +3,12 @@
   <h2 *ngIf="isNew()">New Person</h2>
   <h2 *ngIf="!isNew()">Person Details</h2>
 
+  <button
+    style="margin-bottom: 1rem;"
+    (click)="backToPersons()">
+    ← Back to Persons
+  </button>
+
   <div *ngIf="loading()" class="loading">Loading...</div>
 
   <div *ngIf="!loading()" class="person-details-panel">

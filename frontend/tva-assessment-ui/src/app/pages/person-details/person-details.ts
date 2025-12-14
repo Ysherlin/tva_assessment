@@ -152,4 +152,8 @@ export class PersonDetailsComponent {
       queryParams: { personCode: this.form().code }
     });
   }
+
+  backToPersons() {
+    this.router.navigate(['/persons']);
+  }
 }
