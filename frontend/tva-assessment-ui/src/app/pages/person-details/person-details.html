@@ -3,9 +3,9 @@
   <h2 *ngIf="isNew()">New Person</h2>
   <h2 *ngIf="!isNew()">Person Details</h2>
 
-  <div *ngIf="loading()">Loading...</div>
+  <div *ngIf="loading()" class="loading">Loading...</div>
 
-  <div *ngIf="!loading()">
+  <div *ngIf="!loading()" class="person-details-panel">
 
     <label>
       ID Number
@@ -22,11 +22,44 @@
       <input [(ngModel)]="form().surname" [disabled]="!isEditMode()" />
     </label>
 
-    <div style="margin-top: 1rem;">
+    <div class="actions">
       <button *ngIf="!isEditMode()" (click)="edit()">Edit</button>
       <button *ngIf="isEditMode()" (click)="save()">Save</button>
       <button *ngIf="isEditMode()" (click)="cancel()">Cancel</button>
       <button *ngIf="!isNew()" (click)="delete()">Delete</button>
+    </div>
+
+    <!-- ACCOUNTS -->
+    <h3 style="margin-top: 2rem;">Accounts</h3>
+
+    <button
+      *ngIf="!isNew()"
+      (click)="createAccount()">
+      + New Account
+    </button>
+
+    <table *ngIf="accounts().length">
+      <thead>
+        <tr>
+          <th>Account Number</th>
+          <th>Balance</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let a of accounts()"
+          (click)="openAccount(a)"
+          class="row-click">
+          <td>{{ a.accountNumber }}</td>
+          <td>{{ a.outstandingBalance }}</td>
+          <td>{{ a.isClosed ? 'Closed' : 'Open' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="!accounts().length" class="empty">
+      No accounts found.
     </div>
 
   </div>

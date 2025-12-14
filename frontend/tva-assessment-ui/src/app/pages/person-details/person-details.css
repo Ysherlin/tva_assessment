@@ -13,7 +13,7 @@
   color: #2c3e50;
 }
 
-/* FORM PANEL */
+/* PANEL */
 .person-details-panel {
   background: #f9fafb;
   padding: 1.2rem;
@@ -70,7 +70,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* ACTION ROW */
+/* ACTIONS */
 .actions {
   margin-top: 1rem;
 }
@@ -79,7 +79,6 @@ button:disabled {
 .loading {
   font-weight: 500;
   font-style: italic;
-  margin-bottom: 1rem;
   color: #4b5563;
 }
 
@@ -112,4 +111,20 @@ tbody td {
   font-size: 0.9rem;
   color: #111827;
   border-bottom: 1px solid #f3f4f6;
+}
+
+tbody tr:hover {
+  background-color: #f9fafb;
+  cursor: pointer;
+}
+
+.row-click {
+  transition: background 0.2s ease;
+}
+
+/* EMPTY */
+.empty {
+  margin-top: 1rem;
+  color: #6b7280;
+  font-style: italic;
 }

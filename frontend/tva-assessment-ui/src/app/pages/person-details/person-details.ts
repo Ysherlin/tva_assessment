@@ -1,9 +1,12 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { PersonService } from '../../services/person.service';
+import { AccountService } from '../../services/account.service';
 import { Person } from '../../models/person.model';
+import { Account } from '../../models/account.model';
 
 interface PersonForm {
   code?: number;
@@ -20,41 +23,43 @@ interface PersonForm {
   styleUrl: './person-details.css'
 })
 export class PersonDetailsComponent {
-
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private personService = inject(PersonService);
+  private accountService = inject(AccountService);
 
   isNew = signal(false);
   isEditMode = signal(false);
   loading = signal(false);
 
-  // ✔ Dedicated form model (fixes ngModel + signals issue)
   form = signal<PersonForm>({
     idNumber: '',
     name: '',
     surname: ''
   });
 
+  private accountsState = signal<Account[]>([]);
+  accounts = computed(() => this.accountsState());
+
   ngOnInit() {
-    const codeParam = this.route.snapshot.paramMap.get('id');
+    const idParam = this.route.snapshot.paramMap.get('id');
 
     // NEW PERSON
-    if (!codeParam) {
+    if (!idParam) {
       this.isNew.set(true);
       this.isEditMode.set(true);
       return;
     }
 
-    // EXISTING PERSON
-    const code = Number(codeParam);
-    if (!code || Number.isNaN(code)) {
+    const code = Number(idParam);
+    if (!code) {
       alert('Invalid person');
       this.router.navigate(['/persons']);
       return;
     }
 
     this.loading.set(true);
+
     this.personService.getOne(code).subscribe({
       next: (p) => {
         this.form.set({
@@ -63,11 +68,25 @@ export class PersonDetailsComponent {
           name: p.name,
           surname: p.surname
         });
-        this.loading.set(false);
+
+        this.loadAccounts(code);
       },
       error: () => {
         alert('Failed to load person');
         this.router.navigate(['/persons']);
+      }
+    });
+  }
+
+  private loadAccounts(personCode: number) {
+    this.accountService.getByPerson(personCode).subscribe({
+      next: (accounts) => {
+        this.accountsState.set(accounts);
+        this.loading.set(false);
+      },
+      error: () => {
+        alert('Failed to load accounts');
+        this.loading.set(false);
       }
     });
   }
@@ -87,9 +106,7 @@ export class PersonDetailsComponent {
   save() {
     this.loading.set(true);
 
-    const payload: Person = {
-      ...this.form()
-    };
+    const payload: Person = { ...this.form() };
 
     const action = this.isNew()
       ? this.personService.create(payload)
@@ -98,14 +115,12 @@ export class PersonDetailsComponent {
     action.subscribe({
       next: (saved) => {
         alert('Person saved successfully');
-
         this.form.set({
           code: saved.code,
           idNumber: saved.idNumber,
           name: saved.name,
           surname: saved.surname
         });
-
         this.isNew.set(false);
         this.isEditMode.set(false);
         this.loading.set(false);
@@ -118,9 +133,7 @@ export class PersonDetailsComponent {
   }
 
   delete() {
-    if (!confirm('Are you sure you want to delete this person?')) {
-      return;
-    }
+    if (!confirm('Are you sure you want to delete this person?')) return;
 
     this.personService.delete(this.form().code!).subscribe({
       next: () => {
@@ -129,6 +142,16 @@ export class PersonDetailsComponent {
       },
       error: (err: any) =>
         alert(err?.error?.message ?? 'Delete failed')
+    });
+  }
+
+  openAccount(a: Account) {
+    this.router.navigate(['/accounts', a.code]);
+  }
+
+  createAccount() {
+    this.router.navigate(['/accounts/new'], {
+      queryParams: { personCode: this.form().code }
     });
   }
 }

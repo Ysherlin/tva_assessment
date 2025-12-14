@@ -1,2 +1,73 @@
-<h2>Account Details</h2>
-<p>This page will show details for a single account and its transactions.</p>
+<div class="persons-page">
+
+  <h2 *ngIf="isNew()">New Account</h2>
+  <h2 *ngIf="!isNew()">Account Details</h2>
+
+  <button
+    style="margin-bottom: 1rem;"
+    (click)="backToPerson()">
+    ← Back to Person
+  </button>
+
+  <div *ngIf="loading()" class="loading">Loading...</div>
+
+  <div *ngIf="!loading()" class="account-details-panel">
+
+    <label>
+      Account Number
+      <input [(ngModel)]="form().accountNumber" [disabled]="!isEditMode()" />
+    </label>
+
+    <label>
+      Outstanding Balance
+      <input [value]="form().outstandingBalance" disabled />
+    </label>
+
+    <label>
+      Status
+      <input [value]="form().isClosed ? 'Closed' : 'Open'" disabled />
+    </label>
+
+    <div class="actions">
+      <button *ngIf="!isEditMode()" (click)="edit()">Edit</button>
+      <button *ngIf="isEditMode()" (click)="save()">Save</button>
+      <button *ngIf="isEditMode()" (click)="cancel()">Cancel</button>
+
+      <button *ngIf="!form().isClosed" (click)="closeAccount()">Close</button>
+      <button *ngIf="form().isClosed" (click)="reopenAccount()">Reopen</button>
+    </div>
+
+    <!-- Transactions -->
+    <h3 style="margin-top: 1.5rem;">Transactions</h3>
+
+    <button 
+      *ngIf="!form().isClosed"
+      (click)="addTransaction()">
+      + New Transaction
+    </button>
+
+    <table *ngIf="form().transactions?.length">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Description</th>
+          <th>Captured</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of form().transactions" (click)="openTransaction(t)">
+          <td>{{ t.transactionDate | date }}</td>
+          <td>{{ t.amount }}</td>
+          <td>{{ t.description }}</td>
+          <td>{{ t.captureDate | date }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="!form().transactions?.length" class="empty">
+      No transactions found.
+    </div>
+
+  </div>
+</div>
